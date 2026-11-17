@@ -4,11 +4,12 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from .routers import match, portfolio
+from .routers import assistant, match, portfolio
 
 app = FastAPI(title="GitHub Developer Portfolio")
 app.include_router(portfolio.router)
 app.include_router(match.router)
+app.include_router(assistant.router)
 
 FRONTEND = Path(__file__).resolve().parents[2] / "frontend"
 
