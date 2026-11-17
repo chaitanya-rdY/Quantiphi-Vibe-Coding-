@@ -46,10 +46,17 @@ def contribution_stats(days: list[dict], today: date | None = None) -> dict:
     by_date = {d["date"]: d["count"] for d in days}
     max_count = max(by_date.values(), default=0)
 
-    levelled = [
-        {"date": d["date"], "count": d["count"], "level": intensity_level(d["count"], max_count)}
-        for d in sorted(days, key=lambda x: x["date"])
-    ]
+    # Fill gaps with zero-activity days so the heatmap is a continuous calendar
+    # (the events fallback only reports days that had activity).
+    levelled = []
+    if by_date:
+        cur = date.fromisoformat(min(by_date))
+        end = max(today, date.fromisoformat(max(by_date)))
+        while cur <= end:
+            iso = cur.isoformat()
+            count = by_date.get(iso, 0)
+            levelled.append({"date": iso, "count": count, "level": intensity_level(count, max_count)})
+            cur += timedelta(days=1)
 
     # longest streak
     longest = run = 0

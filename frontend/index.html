@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevFolio · GitHub Developer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="prompt">&gt;_</span> devfolio</div>
+    <form id="search-form" class="search" autocomplete="off">
+      <input id="username" type="text" placeholder="github username" spellcheck="false" maxlength="39" aria-label="GitHub username">
+      <button type="submit">Load</button>
+      <button type="button" id="refresh" class="ghost" title="Bypass cache and re-fetch from GitHub">Refresh</button>
+    </form>
+  </header>
+
+  <main id="app" class="container">
+    <div id="notices"></div>
+    <section id="empty" class="empty">
+      <h1>Your code, as a story.</h1>
+      <p>Enter a GitHub username to build a live developer portfolio.</p>
+    </section>
+    <div id="loading" class="loading" hidden>Fetching from GitHub…</div>
+
+    <section id="profile" class="card profile" hidden></section>
+
+    <section id="stats" class="stats" hidden></section>
+
+    <section id="activity" class="card" hidden>
+      <div class="card-head">
+        <h2>Contribution activity</h2>
+        <span id="activity-source" class="muted"></span>
+      </div>
+      <div id="heatmap" class="heatmap-wrap"></div>
+      <div class="legend"><span>Less</span>
+        <i class="cell l0"></i><i class="cell l1"></i><i class="cell l2"></i><i class="cell l3"></i><i class="cell l4"></i>
+        <span>More</span></div>
+    </section>
+
+    <div class="two-col" id="tools" hidden>
+      <section class="card">
+        <div class="card-head"><h2>Tech stack compatibility</h2></div>
+        <p class="muted">Paste a job description to see how your repositories line up.</p>
+        <textarea id="jd" rows="7" placeholder="e.g. We are looking for a backend engineer with strong Python, Django and PostgreSQL experience…"></textarea>
+        <div class="row">
+          <button id="analyze">Analyze match</button>
+          <span id="match-error" class="error"></span>
+        </div>
+        <div id="match-detail"></div>
+      </section>
+
+      <section class="card assistant">
+        <div class="card-head"><h2>Ask the portfolio</h2></div>
+        <div id="chat-log" class="chat-log"></div>
+        <div id="chips" class="chips"></div>
+        <form id="chat-form" class="row" autocomplete="off">
+          <input id="chat-input" type="text" placeholder="Ask about languages, projects, consistency…" maxlength="500">
+          <button type="submit">Ask</button>
+        </form>
+        <div class="row bio-row">
+          <button type="button" id="bio-btn" class="ghost">Generate bio &amp; pitch</button>
+        </div>
+        <div id="bio-out" class="bio-out"></div>
+      </section>
+    </div>
+
+    <section id="repos-section" hidden>
+      <div class="card-head"><h2>Repositories</h2><span id="repo-count" class="muted"></span></div>
+      <div id="repos" class="repo-grid"></div>
+    </section>
+  </main>
+
+  <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>
